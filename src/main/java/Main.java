@@ -3,6 +3,7 @@ import database.Database;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+// ON the main application or service layer, use the EmployeeDao interface to perform CRUD operations on the Employee entity.
 public class Main {
     public static void main(String[] args) throws SQLException {
 

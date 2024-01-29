@@ -1,5 +1,7 @@
 package domain;
 
+//  Model Class : a class that represents the entity you want to persist.
+//  This class should have attributes that map to the fields in your database table.
 public class Employee {
 
     private int id;

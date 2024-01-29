@@ -9,21 +9,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+// Concrete DAO class : an implementation of the EmployeeDao interface.
+// It uses JDBC to interact with a MySQL database.
+// Each method prepares a SQL statement, executes it against the database, and processes the result.
 public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public Employee get(int id) throws SQLException {
-        Connection con = Database.getConnection();
+        Connection con = Database.getConnection(); // Establishing a connection to the db (stored in the con variable).
         Employee employee = null;
 
         String sql = "SELECT id, employee_id, first_name, last_name, dept_id FROM employees WHERE id = ?";
 
-        PreparedStatement ps = con.prepareStatement(sql);
+        PreparedStatement ps = con.prepareStatement(sql); // A PreparedStatement is then created from the connection and the SQL query. The PreparedStatement allows us to execute SQL statements with parameters, which can help prevent SQL injection attacks.
 
-        ps.setInt(1, id);
+        ps.setInt(1, id); // The setInt method is used to set the value of the first parameter (the ? in the SQL query) to the value of the id variable.
 
-        ResultSet rs = ps.executeQuery();
+        ResultSet rs = ps.executeQuery(); // The executeQuery method is used to execute the SQL query and return the result in a ResultSet object.
 
-        if (rs.next()) {
+        if (rs.next()) { // The next method of the ResultSet object is used to move the cursor to the first row of the result set. If there is a row, the method returns true, and the data is retrieved from the result set.
             int oldId = rs.getInt("id");
             int employeeId = rs.getInt("employee_id");
             String firstName = rs.getString("first_name");
@@ -33,7 +36,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             employee = new Employee(oldId, employeeId, firstName, lastName, deptId);
         }
 
-        return employee;
+        return employee; // Finally, the method returns the Employee object. If no record was found in the database, null is returned.
     }
 
     @Override
