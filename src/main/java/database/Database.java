@@ -11,6 +11,10 @@ public class Database {
     private static String username = "root";
     private static String password = "password";
 
+    // private constructor used to prevent the instantiation of the Database class.
+    //It doesn't make sense to create an instance of this class, because it doesn't hold any state and all its methods are static.
+    //By making the constructor private, it ensures that this class cannot be instantiated from outside the class.
+    //This is a way to enforce the Singleton pattern, ensuring that only one instance of the class can exist in the JVM at any time.
     private Database() {
     }
 

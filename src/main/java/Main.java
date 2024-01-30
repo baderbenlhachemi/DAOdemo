@@ -1,9 +1,12 @@
+import controller.EmployeeController;
 import database.Database;
+import domain.Employee;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-// ON the main application or service layer, use the EmployeeDao interface to perform CRUD operations on the Employee entity.
+// The main method will be responsible for creating an instance of the controller to perform CRUD operations on the Employee entity.
+// the Main application is now only responsible for interacting with the EmployeeController, which in turn interacts with the EmployeeService and EmployeeDao to perform the actual operations.
 public class Main {
     public static void main(String[] args) throws SQLException {
 
@@ -16,34 +19,29 @@ public class Main {
             System.out.println("Database Connection Failed");
         }
 
+        EmployeeController employeeController = new EmployeeController();
+
         // Get an employee
-        /*EmployeeDao employeeDao1 = new EmployeeDaoImpl();
-        Employee employee1 = employeeDao1.get(1);
-        System.out.println(employee1);*/
+        Employee employee1 = employeeController.getEmployee(2);
+        System.out.println(employee1);
 
         // Get all employees
-        /*EmployeeDao employeeDao5 = new EmployeeDaoImpl();
-        employeeDao5.getAll();*/
+        System.out.println(employeeController.getAllEmployees());
 
         // Insert a new employee
-        /*EmployeeDao employeeDao2 = new EmployeeDaoImpl();
-        Employee employee2 = new Employee(0, 302, "Bob", "Ross", 3);
-        int result = employeeDao2.insert(employee2);
-        System.out.println(result);*/
+        Employee newEmployee = new Employee(0, 302, "Bob", "Ross", 3);
+        int insertResult = employeeController.insertEmployee(newEmployee);
+        System.out.println(insertResult);
 
         // Update an employee
-        /*EmployeeDao employeeDao3 = new EmployeeDaoImpl();
-        Employee employee3 = new Employee(3, 302, "Bobby", "Ross", 3);
-        employeeDao3.update(employee3);
-        System.out.println(employee3);*/
+        Employee employeeToUpdate = new Employee(3, 302, "Bobby", "Ross", 3);
+        int updateResult = employeeController.updateEmployee(employeeToUpdate);
+        System.out.println(updateResult);
 
         // Delete an employee
-        /*EmployeeDao employeeDao4 = new EmployeeDaoImpl();
-        Employee employee4 = employeeDao4.get(8);
-        employeeDao4.delete(employee4);
-        System.out.println(employee4);
-        int result = employeeDao4.delete(employee4);
-        System.out.println(result);*/
+        Employee employeeToDelete = employeeController.getEmployee(8);
+        int deleteResult = employeeController.deleteEmployee(employeeToDelete);
+        System.out.println(deleteResult);
 
     }
 }
